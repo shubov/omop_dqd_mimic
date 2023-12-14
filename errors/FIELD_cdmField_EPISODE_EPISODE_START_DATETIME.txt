@@ -1,0 +1,58 @@
+DBMS:
+bigquery
+
+Error:
+java.sql.SQLException: [Simba][BigQueryJDBCDriver](100032) Error executing query job. Message: Not found: Table booming-edge-403620:mimiciv_full_current_cdm.episode was not found in location US
+
+SQL:
+/*********
+FIELD LEVEL check:
+CDM_FIELD - verify the field exists
+Parameters used in this template:
+schema = booming-edge-403620.mimiciv_full_current_cdm
+cdmTableName = EPISODE
+cdmFieldName = EPISODE_START_DATETIME
+**********/
+select 
+  num_violated_rows, 
+  case 
+    when denominator.num_rows = 0 then 0 else 1.0*num_violated_rows/denominator.num_rows 
+  end as pct_violated_rows, 
+  denominator.num_rows as num_denominator_rows
+from (
+  select num_violated_rows from (
+    select
+      case 
+        when COUNT(episode_start_datetime) = 0 then 0
+        else 0
+      end as num_violated_rows
+    from booming-edge-403620.mimiciv_full_current_cdm.episode cdmtable
+    ) violated_rows
+) violated_row_count,
+( 
+  select 1 as num_rows
+) denominator
+;
+
+
+R version:
+R version 4.3.2 (2023-10-31)
+
+Platform:
+aarch64-apple-darwin23.0.0
+
+Attached base packages:
+- stats
+- graphics
+- grDevices
+- utils
+- datasets
+- methods
+- base
+
+Other attached packages:
+- DatabaseConnector (6.3.0)
+- devtools (2.4.5)
+- usethis (2.2.2)
+- rJava (1.0-6)
+- bigrquery (1.4.2)

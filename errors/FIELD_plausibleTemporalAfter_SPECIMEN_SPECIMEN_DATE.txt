@@ -1,0 +1,74 @@
+DBMS:
+bigquery
+
+Error:
+java.sql.SQLException: [Simba][BigQueryJDBCDriver](100032) Error executing query job. Message: Failed to parse input string "2112-06-01"
+
+SQL:
+/*********
+PLAUSIBLE_TEMPORAL_AFTER
+get number of records and the proportion to total number of eligible records with datetimes that do not occur on or after their corresponding datetimes
+Parameters used in this template:
+schema = booming-edge-403620.mimiciv_full_current_cdm
+cdmTableName = SPECIMEN
+cdmFieldName = SPECIMEN_DATE
+plausibleTemporalAfterTableName = PERSON
+plausibleTemporalAfterFieldName = BIRTH_DATETIME
+**********/
+select 
+	num_violated_rows, 
+	case 
+		when denominator.num_rows = 0 then 0 
+		else 1.0*num_violated_rows/denominator.num_rows 
+	end as pct_violated_rows, 
+  	denominator.num_rows as num_denominator_rows
+from
+(
+	select 
+		COUNT(violated_rows.violating_field) as num_violated_rows
+	from
+	(
+		/*violatedRowsBegin*/
+		select 
+			'SPECIMEN.SPECIMEN_DATE' as violating_field, 
+			cdmtable.*
+    	from booming-edge-403620.mimiciv_full_current_cdm.specimen cdmtable
+				join booming-edge-403620.mimiciv_full_current_cdm.person plausibletable on cdmtable.person_id = plausibletable.person_id
+    where 
+			coalesce(
+				IF(SAFE_CAST(plausibletable.birth_datetime  AS DATE) IS NULL,PARSE_DATE('%Y%m%d', cast(plausibletable.birth_datetime  AS STRING)),SAFE_CAST(plausibletable.birth_datetime  AS DATE)),
+				parse_date('%Y%m%d', concat(plausibletable.year_of_birth,'-06-01'))
+			) 
+		 > IF(SAFE_CAST(cdmtable.specimen_date  AS DATE) IS NULL,PARSE_DATE('%Y%m%d', cast(cdmtable.specimen_date  AS STRING)),SAFE_CAST(cdmtable.specimen_date  AS DATE))
+		/*violatedRowsEnd*/
+	) violated_rows
+) violated_row_count,
+(
+	select 
+		COUNT(*) as num_rows
+	from booming-edge-403620.mimiciv_full_current_cdm.specimen cdmtable
+) denominator
+;
+
+
+R version:
+R version 4.3.2 (2023-10-31)
+
+Platform:
+aarch64-apple-darwin23.0.0
+
+Attached base packages:
+- stats
+- graphics
+- grDevices
+- utils
+- datasets
+- methods
+- base
+
+Other attached packages:
+- DatabaseConnector (6.3.0)
+- devtools (2.4.5)
+- usethis (2.2.2)
+- rJava (1.0-6)
+- bigrquery (1.4.2)

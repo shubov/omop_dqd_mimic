@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "booming-edge-403620",
+  "private_key_id": "f6bb11ff66d250d0e0717b4bded6db7a3ac21fd0",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC9+JT7WfPLeFOR\nw5Ix9ed9HDJTihSO+i+j3EeNR8j6ycxeat3P8MhcxjVBy0tj6RvU/DSDRVf+kqwD\nd6fjIxjbFRtnEO8ld/V+CHjj3FNscTlFzcgF0ChvkJqEhjUBvDxZ1gBynSiLR3Ug\nZ56dJvEG7mCGxQ7cQEUspeJ4AbrW4nUWFbcd7sG1EjD+IFUTfjCxI1aqX5vooylN\n2r8ChIU0EzRnHuN2/qGYqZICL6gMfC5KutXrlF8UeABM1NkKbPaguZW3VDqmdTkL\novurXXMbWS2+s36SQ37Vn7b8ACas6kxmsQBpQ7nXmKaCtYsmPaX66AOmQ6uyy7pJ\nyzTFJKFlAgMBAAECggEAHnfS9SktJ7IJvTQfq3GkCfXOwIVB3NiVcXNv6mHcAxUA\neRgssSAOEosbmYzQb5rAgv1cMr2ZalP90KSNQamsX97XwUT/BgRiVC9prCn3G0ph\nhCeH8B69jX8kuSKJN9kH2OSwt7ErAoOYbnUQBGZte84ZnyPVyU9piMqmMtccL0Bl\n/6n23FenOKOmV7+sPec8FLXwgI8Kj6MnG7QbGuIlz/0C7leYwOK/WayCN1bc8UYd\njV3gKHu/kKAb1vlEtE4JvBbqj4a6VY8o1hXCK0S2jYVmlEogRHRsri9Hd3tz6k/6\nBErgXsQZpuzSzEjFPbqdgqc7Xm1IXcSoSQzJhDWudQKBgQDjQ8NcvpHU2/tD00Is\nWYY0l9FV0paVL5/Fdby2Nl3DgHTIbIvuawVbncKlEqVWGPwENgK/S7xeF/hVsylG\nHY7OQ680v7FaQJdIYKyKFbpIPzMcN8v/u3ndwueXtRx5lyGDqGf+H1HMVwbPb6b7\n3aVKOSDrgnBbNPKE2OeXsXrt3wKBgQDV/azekPyiaSF5B/EVX8sS32DUoCsmwggf\nBO0VqEtF2dY42R8F45SIlPpdJRiSyDH811U9wTzC2LRDSFIG3hcfw0sNDVR0mAC1\nxTpKsDALKvbKyC8cekTQ0b1qcY/iPAApEAASl2JE6cxGi/GD5b1r7CNaJsfrzhMf\n6vstBHwROwKBgB60CvK+tEkDp0CUi/4d4im80QU9PCbPllBBBcvAMI63Dg/9yjHd\nt42XFLLkf/3PxkxzV4+slbhImL5LRCo62A45yrPfqgA9dbLLjMPjB5W3JBqN1zun\ngmFZcZxnVX9/0YFOAS6t4IkwwLTJqs+gNDKA4Vev+an4z0LvYup1idwVAoGABMHk\nAvq0MyQlM1yi1nfPuvauX2vEKdNsfMwOPUoFimMCaTcigm4B0luFiWaWukSrH9Tl\ntz7BjA9nSoukDzUGzJT56Stfskvi0Ce3WQu7tbPZ0r5KldZ+CypujJxDt6Lf2gna\nBo/JBoEwIm1gDC+iW3DfhFSSY0KsmCwQM3sDCxsCgYEAty1m8oJmfx0IIe8h2Nuh\nrvrt/Kq9tBxRa90fJGTCyPCuO8rgVsSW64b8P0s9gDryT9Kcx5Agr7TBORe33T4V\nDQEbTQxk+AahXu0gqFvIJBJo6Ri6ZoTZQzx7sCN90x9SZKLN6Ya8Z92sF+7EArcj\nafX8iwf1xiALgvt9+0k9FNk=\n-----END PRIVATE KEY-----\n",
+  "client_email": "r-data-quality-check@booming-edge-403620.iam.gserviceaccount.com",
+  "client_id": "101388199212894414894",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/r-data-quality-check%40booming-edge-403620.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

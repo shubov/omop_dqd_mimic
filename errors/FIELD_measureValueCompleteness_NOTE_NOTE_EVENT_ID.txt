@@ -1,0 +1,66 @@
+DBMS:
+bigquery
+
+Error:
+java.sql.SQLException: [Simba][BigQueryJDBCDriver](100032) Error executing query job. Message: Name note_event_id not found inside cdmtable at [19:32]
+
+SQL:
+/*********
+MEASURE_VALUE_COMPLETENESS
+Computing number of null values and the proportion to total records per field
+Parameters used in this template:
+cdmDatabaseSchema = booming-edge-403620.mimiciv_full_current_cdm
+cdmTableName = NOTE
+cdmFieldName = NOTE_EVENT_ID
+**********/
+select 
+	num_violated_rows, 
+	case 
+		when denominator.num_rows = 0 then 0 
+		else 1.0*num_violated_rows/denominator.num_rows 
+	end as pct_violated_rows, 
+  denominator.num_rows as num_denominator_rows
+from
+(
+	select 
+		COUNT(violated_rows.violating_field) as num_violated_rows
+	from
+	(
+		/*violatedRowsBegin*/
+		select 
+			'NOTE.NOTE_EVENT_ID' as violating_field, 
+			cdmtable.* 
+		from booming-edge-403620.mimiciv_full_current_cdm.note cdmtable
+		where cdmtable.note_event_id is null
+		/*violatedRowsEnd*/
+	) violated_rows
+) violated_row_count,
+( 
+	select 
+		COUNT(*) as num_rows
+	from booming-edge-403620.mimiciv_full_current_cdm.note cdmtable
+) denominator
+;
+
+
+R version:
+R version 4.3.2 (2023-10-31)
+
+Platform:
+aarch64-apple-darwin23.0.0
+
+Attached base packages:
+- stats
+- graphics
+- grDevices
+- utils
+- datasets
+- methods
+- base
+
+Other attached packages:
+- DatabaseConnector (6.3.0)
+- devtools (2.4.5)
+- usethis (2.2.2)
+- rJava (1.0-6)
+- bigrquery (1.4.2)

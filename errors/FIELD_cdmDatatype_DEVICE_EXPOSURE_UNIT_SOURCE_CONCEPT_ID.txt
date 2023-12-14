@@ -1,0 +1,70 @@
+DBMS:
+bigquery
+
+Error:
+java.sql.SQLException: [Simba][BigQueryJDBCDriver](100032) Error executing query job. Message: Name unit_source_concept_id not found inside cdmtable at [20:49]
+
+SQL:
+/*********
+FIELD_CDM_DATATYPE
+At a minimum, for each field that is supposed to be an integer, verify it is an integer
+Parameters used in this template:
+schema = booming-edge-403620.mimiciv_full_current_cdm
+cdmTableName = DEVICE_EXPOSURE
+cdmFieldName = UNIT_SOURCE_CONCEPT_ID
+**********/
+select 
+  num_violated_rows, 
+	case 
+		when denominator.num_rows = 0 then 0 
+		else 1.0*num_violated_rows/denominator.num_rows 
+	end as pct_violated_rows, 
+	denominator.num_rows as num_denominator_rows
+from
+(
+	select 
+	  COUNT(violated_rows.violating_field) as num_violated_rows
+	from
+	(
+		/*violatedRowsBegin*/
+		select 
+		  'DEVICE_EXPOSURE.UNIT_SOURCE_CONCEPT_ID' as violating_field, 
+		  cdmtable.* 
+		from booming-edge-403620.mimiciv_full_current_cdm.device_exposure cdmtable
+		where 
+		  (CASE WHEN SAFE_CAST(cdmtable.unit_source_concept_id AS FLOAT64) IS NULL THEN 0 ELSE 1 END = 0 
+		    or (CASE WHEN SAFE_CAST(cdmtable.unit_source_concept_id AS FLOAT64) IS NULL THEN 0 ELSE 1 END = 1 
+		      and STRPOS(cast(abs(cdmtable.unit_source_concept_id) as STRING),'.') != 0))
+      and cdmtable.unit_source_concept_id is not null
+		/*violatedRowsEnd*/
+	) violated_rows
+) violated_row_count,
+( 
+	select 
+	  COUNT(*) as num_rows
+	from booming-edge-403620.mimiciv_full_current_cdm.device_exposure
+) denominator
+;
+
+
+R version:
+R version 4.3.2 (2023-10-31)
+
+Platform:
+aarch64-apple-darwin23.0.0
+
+Attached base packages:
+- stats
+- graphics
+- grDevices
+- utils
+- datasets
+- methods
+- base
+
+Other attached packages:
+- DatabaseConnector (6.3.0)
+- devtools (2.4.5)
+- usethis (2.2.2)
+- rJava (1.0-6)
+- bigrquery (1.4.2)
